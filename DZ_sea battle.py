@@ -61,7 +61,6 @@ class Ship:
         return ship_dots
 
     def shooten(self, shot):
-        print('shooten', shot in self.dots)
         return shot in self.dots
 
 

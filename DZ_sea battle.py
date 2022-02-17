@@ -14,8 +14,8 @@ class Dot:
         return self.x == other.x and self.y == other.y
 
     def __repr__(self):
-        # return f"({self.x}, {self.y})"
-        return f"Dot({self.x}, {self.y})"
+        return f"({self.x}, {self.y})"
+        #return f"Dot({self.x}, {self.y})"
 
 
 class BoardException(Exception):
@@ -121,8 +121,8 @@ class Board:
         self.busy.append(d)
 
         for ship in self.ships:
-            # if d in ship.dots:
-            if d in ship.shooten(d):
+            if d in ship.dots:
+            # if d in ship.shooten(d):
                 ship.lives -= 1
                 self.field[d.x][d.y] = "X"
                 if ship.lives == 0:

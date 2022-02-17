@@ -1,7 +1,5 @@
-# Добрый день! В коде с вебинара есть некоторая особенность - если корабль убит то происходит переход хода,
-# а не повторный ход, как должно быть (т.е. кусок num -= 1 не выполняется). И я что то прямо сейчас не пойму почему - после разбора задания голова гудит, и думать не о чем не хочет..
-# За дедлайн вылетать не хочется, пока оставляю как есть. Если удастся разобраться раньше чем вы начнете проверку, то я просто заменю файл на github.
-# Или в репозиторий рядышком добавлю исправленный файл.
+# Добрый день!
+# По оригинальным правилам после уничтожения корабля игроку предоставляется дополнительный ход.
 
 
 from random import randint
@@ -123,16 +121,17 @@ class Board:
         self.busy.append(d)
 
         for ship in self.ships:
-            if d in ship.dots:
+            # if d in ship.dots:
+            if d in ship.shooten(d):
                 ship.lives -= 1
                 self.field[d.x][d.y] = "X"
                 if ship.lives == 0:
                     self.count += 1
                     self.contour(ship, verb=True)
-                    print("Корабль убит!")
-                    return False
+                    print("Убит!")
+                    return True
                 else:
-                    print("Корабль ранен!")
+                    print("Ранен!")
                     return True
 
         self.field[d.x][d.y] = "."
@@ -194,7 +193,6 @@ class Game:
         pl = self.random_board()
         co = self.random_board()
         co.hide = True
-        # co.hide = False
 
         self.ai = AI(co, pl)
         self.us = User(pl, co)
@@ -247,14 +245,14 @@ class Game:
                 print("Ходит игрок!")
                 print("x - строка, y - столбец")
                 repeat = self.us.move()
-                # print('первый', num)
+
             else:
                 print("-" * 20)
                 print("Ходит компьютер!")
                 repeat = self.ai.move()
             if repeat:
                 num -= 1
-                # print('второй', num)
+
 
             if self.ai.board.count == 7:
                 print("-" * 20)
@@ -266,7 +264,7 @@ class Game:
                 print("Компьютер выиграл!")
                 break
             num += 1
-            # print('третий', num)
+
 
     def start(self):
         self.greet()

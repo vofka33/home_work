@@ -61,6 +61,7 @@ class Ship:
         return ship_dots
 
     def shooten(self, shot):
+        print('shooten', shot in self.dots)
         return shot in self.dots
 
 
@@ -121,8 +122,8 @@ class Board:
         self.busy.append(d)
 
         for ship in self.ships:
-            if d in ship.dots:
-            # if d in ship.shooten(d):
+            # if d in ship.dots:
+            if ship.shooten(d):
                 ship.lives -= 1
                 self.field[d.x][d.y] = "X"
                 if ship.lives == 0:
